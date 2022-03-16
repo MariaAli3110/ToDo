@@ -1,0 +1,14 @@
+$input-color: #fddada;
+
+.input { 
+  width: 85%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid $input-color;
+  border-radius: 4px;
+  background-color: $input-color;
+  resize: none;
+  font: black
+  
+
+}

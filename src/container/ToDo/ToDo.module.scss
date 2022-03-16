@@ -1,0 +1,16 @@
+@use 'sass:math';
+
+.ToDo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 25px auto; 
+    width: math.div(700px, 1366px) * 100%;
+    height: 300px;
+    box-sizing: border-box;
+    h1{
+        color: red
+    }
+
+}

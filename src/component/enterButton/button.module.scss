@@ -1,0 +1,9 @@
+$button-color:rgb(143, 143, 236);
+button {
+    color: rgb(7, 5, 75);
+    background-color: $button-color;
+    font-weight: bold;
+    border: 1px solid $button-color;
+    margin: 3px 0;
+    font-size: 1.1rem;
+}
