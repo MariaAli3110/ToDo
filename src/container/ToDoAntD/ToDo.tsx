@@ -1,38 +1,58 @@
-import React, { useState, useRef } from "react";
+import React, {useRef } from "react";
 import 'antd/dist/antd.css';
 import style from './ToDo.module.scss'
-import { Input, Form, Button, List, Layout} from "antd";
+import { Input, Form, Button, List, Layout, Checkbox} from "antd";
+import { observer } from "mobx-react";
+import store from '../../store/TaskStore'
+const ToDo = observer(() => {
+  const {
+    Tasks,
+    showForm,
+    setShowForm,
+    setTasks
+  } = store
 
-const ToDo = (props:any) => {
   const { Header, Footer, Sider, Content } = Layout;
   const inputValue:any = useRef('');
-  const [TasksArray, setTaskArray] = useState([
-    "Wake Up",
-    "Eat Breakfast",
-    "Study",
-    "Sleep",
-  ]);
-  const [showForm, setShowForm] = useState(false)
+
+  
+  
   const enterNewTaskHandler = () => {     
-    setTaskArray([
-      ...TasksArray,
-      inputValue.current.input.value
+    setTasks([
+      ...Tasks,
+      {
+        text: inputValue.current.input.value,
+        completed: false
+      }
     ])
     document.getElementsByTagName('input')[0].value =''
     setShowForm(false)
     }
   const removeTaskHandler = (event:any) => {
     const removeElementId = event.target.id
-    let updatedTask = [...TasksArray]
+    let updatedTask = [...Tasks]
     updatedTask = updatedTask.filter(task => {
-      return task !== removeElementId
+      if(task.text !== removeElementId){
+        return task;
+      }  
     })   
-    setTaskArray(updatedTask)
+     setTasks(updatedTask)
   }
+
   const newTaskForm = () => {
     setShowForm(true)
   }
-  
+
+  const taskCompleteHandler = (event: any) => {
+    const completeElementId = event.target.id
+    let updatedTask = [...Tasks]
+    updatedTask.forEach(task => {
+      if(task.text === completeElementId){
+        task.completed = event.target.checked       
+        }
+    })  
+    setTasks(updatedTask) 
+  }
   return (
     <Layout>
       <Header style={{font: 'white'}}>To-Do Task App</Header>
@@ -68,12 +88,18 @@ const ToDo = (props:any) => {
           type="primary" 
           onClick={newTaskForm}>Enter New Task</Button>
            <List
-          dataSource={TasksArray}
+          dataSource={Tasks}
           renderItem={(item) => (
-            <List.Item
-            onClick={(event) =>removeTaskHandler(event)}
-            id={item}>
-              {item}
+            <List.Item>
+              <Checkbox id={item.text}              
+              checked={item.completed}
+              onChange={taskCompleteHandler}
+              >{item.text}</Checkbox>
+              <Button
+              id={item.text}
+              type='primary'
+              size='small'
+              onClick={(event) =>removeTaskHandler(event)}>X</Button>
             </List.Item>
           )}
           />   
@@ -84,11 +110,6 @@ const ToDo = (props:any) => {
       <Footer>Maria Ali</Footer>      
       </Layout> 
   );
-}
+})
 
 export default ToDo
-
-{/* <Input
-          ref={inputValue}
-          placeholder='Enter New Task'
-          status=''/> */}

@@ -2,7 +2,7 @@
 $color:rgb(160, 22, 160);
 
 .ToDo{margin: 25px auto; 
-    width: math.div(700px, 1366px) * 100%;
+    width: 100%;
     height: 500px;
     box-sizing: border-box;
     display: flex;
@@ -33,11 +33,11 @@ $color:rgb(160, 22, 160);
     }
 
 }
-:global(.ant-list) {
+:global(.ant-list-items) {
     border: 1px solid $color;
     padding-left: 5px;
     margin: 3px 0;
-    width: 80%;
+    width: 100%;
 }
 :global(.ant-layout) {
     height: 700px;
@@ -48,4 +48,11 @@ $color:rgb(160, 22, 160);
     border: 1px solid $color;
     padding: 10px;
     background-color: #ddd;
+}
+:global(.ant-list-item){
+    display: flex;
+    justify-content: space-between;
+}
+:global(.ant-list) {
+    text-align: center; 
 }
